@@ -1,0 +1,47 @@
+{{ define "main" }}
+    <header>
+        <a href="{{ "/" | relURL }}" class="logo">CURV INSTITUTE</a>
+        <nav class="nav">
+            <a href="{{ "/publications/" | relURL }}">PUBLICATIONS</a>
+            <span class="header-meta">GENEVA, SWITZERLAND</span>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <h1>Publications</h1>
+            <p class="tagline">Research publications from CURV Institute</p>
+        </section>
+
+        <section>
+            {{ if .Pages }}
+            <div class="publications-list">
+                {{ range .Pages.ByDate.Reverse }}
+                <a href="{{ .RelPermalink }}" class="publication-item">
+                    <span class="pub-title">{{ .Title }}</span>
+                    <span class="pub-meta">
+                        {{ with .Params.authors }}{{ . }} · {{ end }}{{ .Date.Format "January 2006" }}{{ with .Params.venue }} · {{ . }}{{ end }}
+                    </span>
+                </a>
+                {{ end }}
+            </div>
+            {{ else }}
+            <p class="empty-state">No publications yet. Check back soon.</p>
+            {{ end }}
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-legal">
+                <strong>LEGAL IMPRINT / MENTIONS LÉGALES</strong><br>
+                Legal entity: CURV Foundation for Representational Science (in formation) · Legal form: Swiss foundation (Stiftung, in formation) · Intended registered seat: Geneva, Switzerland<br>
+                CURV Institute is the public operating research identity of the CURV Foundation for Representational Science. Non-commercial, public-interest scientific activities only.
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-mark">Contact: <a href="mailto:info@curv.institute">info@curv.institute</a></div>
+                <div class="footer-mark">© 2026 CURV Foundation for Representational Science</div>
+            </div>
+        </div>
+    </footer>
+{{ end }}
