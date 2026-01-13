@@ -1,0 +1,90 @@
+{{ define "main" }}
+<header class="header">
+  <div class="container">
+    <a href="{{ "/" | relURL }}" class="logo">CURV Institute</a>
+    <nav class="nav">
+      <span class="location">{{ .Site.Params.location }}</span>
+      <a href="{{ "/blog/" | relURL }}">Blog</a>
+      <a href="{{ "/papers/" | relURL }}">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <h1>Operationalizing Representational Science</h1>
+      <p class="tagline">A 21st-century institute model inspired by the legacy of Bell Labs—foundational science and new physics coupled to real-world impact.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>What We Do</h2>
+      <p>CURV Institute develops and validates <strong>Representational Science</strong>—a framework studying how complex systems encode, transform, and regulate information. We examine representation-level failures that cause instability and inefficiency across critical domains.</p>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <h2>Focus Areas</h2>
+      <p>We apply our research across eight key domains:</p>
+      <ul class="focus-grid">
+        <li>Quantum systems</li>
+        <li>Artificial intelligence</li>
+        <li>CFD/MHD simulation</li>
+        <li>Fusion-relevant plasma dynamics</li>
+        <li>Climate and Earth-system dynamics</li>
+        <li>Power grids and critical infrastructure</li>
+        <li>Biological and medical systems</li>
+        <li>Cyber protection and anomaly detection</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Operating Model</h2>
+      <div class="model-grid">
+        <div class="model-item">
+          <h3>Institute Pilots</h3>
+          <p>Testing diagnostics on real data</p>
+        </div>
+        <div class="model-item">
+          <h3>Local Labs</h3>
+          <p>Multi-year applied research programs</p>
+        </div>
+        <div class="model-item">
+          <h3>Operating Companies</h3>
+          <p>Licensed commercialization with royalty returns</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <h2>Core Concepts</h2>
+      <ul class="concepts">
+        <li><strong>MLR</strong> — Miller's Law of Representation</li>
+        <li><strong>LoRE</strong> — Local Representational Equilibrium</li>
+        <li><strong>RIFT Stack</strong> — Geometric frameworks for analysis</li>
+        <li><strong>CURV Cycle</strong> — Our methodological framework</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p><a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>Swiss foundation (in formation); non-commercial, public-interest focus</p>
+  </div>
+</footer>
+{{ end }}

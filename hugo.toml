@@ -1,0 +1,13 @@
+baseURL = 'https://curv.institute/'
+languageCode = 'en-us'
+title = 'CURV Institute'
+
+[params]
+  description = 'Operationalizing Representational Science'
+  location = 'Geneva, Switzerland'
+  email = 'info@curv.institute'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
