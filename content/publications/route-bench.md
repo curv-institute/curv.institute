@@ -13,25 +13,74 @@ We introduce **ROUTE-Bench**, a synthetic benchmark for evaluating how language 
 
 ---
 
-## Overview
+## Why ROUTE-Bench Matters in Practice
 
-ROUTE-Bench is a fully synthetic and deterministically verifiable evaluation suite for studying selective routing under composition. Unlike existing benchmarks that isolate individual capabilities, ROUTE-Bench requires models to simultaneously:
+If you've built or deployed modern language systems, you've likely noticed a frustrating pattern: models often know the right information, but fail to use it reliably. They retrieve the correct document, look up the right value, or even call the correct tool—and then lose track of it later. Answers become brittle, inconsistent, or overly biased toward whatever happened most recently.
 
-- Retrieve relevant evidence from large document collections
-- Query structured memory
-- Invoke tools when computation is required
-- Integrate evidence across variable context positions
+ROUTE-Bench exists to measure that failure mode directly.
 
-## Key Findings
+## The real problem isn't retrieval—it's composition
 
-| Metric | Baseline | Hard-Constrained | Harmonized |
-|--------|----------|------------------|------------|
-| AnswerAcc | **0.255** | 0.150 | 0.225 |
-| GroundedAcc | 0.020 | 0.025 | **0.040** |
-| ToolTraceAcc | 0.410 | **0.435** | 0.420 |
-| EvidenceRecall | 0.333 | **0.403** | 0.365 |
+Most current benchmarks ask whether a model can find information. ROUTE-Bench asks something harder and more realistic: can the model keep the right information influential as it's reused across multiple steps, sources, and context positions?
 
-**Harmonized Hyper-Connections** improve evidence-grounded accuracy by 2× relative to baseline and reduce position sensitivity by 35%, indicating more stable performance across context positions.
+In real systems, models don't just answer a question once. They:
+
+- retrieve documents,
+- consult structured memory,
+- call tools,
+- reason over intermediate results,
+- and do all of this across long contexts or multi-step loops.
+
+Each step requires the model to route attention and influence—deciding what matters and what doesn't. The failure usually isn't that the model can't route once; it's that those routing decisions don't hold up when they're composed over time. Early evidence gets diluted, later evidence dominates due to recency, and correct tool outputs get ignored or overwritten.
+
+ROUTE-Bench is designed specifically to expose that problem.
+
+## Why existing benchmarks miss this
+
+Many benchmarks isolate capabilities:
+
+- retrieval benchmarks test retrieval,
+- tool benchmarks test tool calling,
+- long-context benchmarks test recall at distance.
+
+In practice, these capabilities interact. ROUTE-Bench forces them to interact in the same example. A correct answer requires:
+
+- retrieving the right document,
+- reading the right memory entry,
+- optionally using a tool,
+- and integrating all of that correctly—even when the evidence appears far from the query.
+
+Because the benchmark is synthetic and fully controlled, it can vary evidence position, difficulty, and task type while keeping everything else fixed. That makes failures interpretable instead of mysterious.
+
+## What ROUTE-Bench reveals that matters operationally
+
+The benchmark consistently shows three behaviors that map directly to production issues:
+
+**Raw accuracy can look fine while grounding is poor.**
+Models often answer correctly without actually using the right evidence. ROUTE-Bench's GroundedAcc metric catches this, which is critical for systems where attribution and reliability matter.
+
+**Recency bias is a major hidden failure mode.**
+Baseline models perform better when evidence is near the end of the context and worse when it appears early. That's exactly what causes agents to forget early constraints or design decisions during long sessions.
+
+**Hard constraints trade reliability for capability.**
+Forcing models to cite evidence or use tools improves recall, but often at the cost of overall accuracy and flexibility. ROUTE-Bench quantifies that trade-off instead of hand-waving about it.
+
+## Why this matters for real systems
+
+ROUTE-Bench is not about winning a leaderboard. It's about diagnosing why systems fail in ways that users actually experience:
+
+- retrieval-augmented systems that hallucinate despite having the right docs,
+- coding agents that ignore earlier plans or test results,
+- assistants that over- or under-use tools unpredictably,
+- long-context models that lose track of important early information.
+
+By separating selection (finding the right thing) from composition (keeping it influential), ROUTE-Bench gives teams a way to tell whether a fix actually addresses the root cause—or just masks symptoms.
+
+## The practical takeaway
+
+If you're building systems that rely on retrieval, memory, tools, or multi-step reasoning, you don't just need models that can route once. You need models whose routing decisions remain stable when reused. ROUTE-Bench provides a concrete way to measure that stability and compare approaches honestly.
+
+It doesn't claim to solve the problem. It makes the problem visible—and measurable.
 
 ## Code & Data
 
