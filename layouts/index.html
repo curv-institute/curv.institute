@@ -27,6 +27,22 @@
         </section>
 
         <section class="reveal">
+            <div class="section-label">PUBLICATIONS</div>
+            <div class="section-content single">
+                <p style="margin-bottom: 20px; color: var(--muted);">Recent research from CURV Institute:</p>
+                <div class="publications-list">
+                    {{ range first 3 (where .Site.RegularPages "Section" "publications").ByDate.Reverse }}
+                    <a href="{{ .RelPermalink }}" class="publication-item">
+                        <span class="pub-title">{{ .Title }}</span>
+                        <span class="pub-meta">{{ with .Params.authors }}{{ . }} · {{ end }}{{ .Date.Format "January 2, 2006" }}</span>
+                    </a>
+                    {{ end }}
+                </div>
+                <p style="margin-top: 25px;"><a href="{{ "/publications/" | relURL }}" style="color: var(--accent);">View all publications →</a></p>
+            </div>
+        </section>
+
+        <section class="reveal">
             <div class="section-label">FOCUS AREAS</div>
             <div class="section-content single">
                 <p style="margin-bottom: 15px; color: var(--muted);">We apply Representational Science across domains where instability and control cost dominate outcomes, including:</p>
