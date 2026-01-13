@@ -9,6 +9,8 @@ abstract: "Hyper-Connections (HC) expand the residual stream and introduce learn
 
 We introduce **Harmonized Hyper-Connections**, a method for stabilizing residual transport in deep networks through feedback on geometry rather than hard architectural constraints. The core finding: stability and routing capability are not in tension once you control the right quantity—the *applied* composite gain rather than raw parameters. Experiments on key–value retrieval demonstrate that harmonized control matches unconstrained expressivity while eliminating seed-dependent failures and late-stage instability.
 
+**[Read the full paper (PDF)](/papers/harmonized-hyper-connections.pdf)**
+
 ---
 
 ## Why Applied-Gain Control Matters in Practice
