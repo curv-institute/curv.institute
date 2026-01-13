@@ -3,6 +3,7 @@ title: "ROUTE-Bench: Evaluating Selective Routing Under Composition"
 date: 2026-01-12
 authors: "J. W. Miller"
 venue: "CURV Institute Technical Report"
+pdf: "/papers/route-bench.pdf"
 abstract: "We introduce ROUTE-Bench, a synthetic benchmark for evaluating how language models integrate evidence from multiple sources under compositional task demands. The benchmark measures routing quality across retrieval-augmented generation (RAG), structured memory access, and tool use in long-context settings. We evaluate three control strategies—baseline inference, hard-constrained prompting, and Harmonized Hyper-Connections—and find that the harmonized variant doubles evidence-grounded accuracy (0.040 vs. 0.020), albeit from a low baseline typical of compositional evidence integration tasks, while exhibiting 35% lower position sensitivity compared to baseline. Hard constraints improve evidence recall but reduce raw accuracy. Tool utilization remains a limitation across all variants."
 ---
 
