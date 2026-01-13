@@ -1,0 +1,175 @@
+\documentclass[11pt]{article}
+
+% -------------------------
+% Packages
+% -------------------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{authblk}
+
+\onehalfspacing
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+% -------------------------
+% Title & Authors
+% -------------------------
+\title{\textbf{Curv-DFA: A Curvature-Controlled Architecture for Density Functional Approximations in DFT}}
+
+\author[1]{J.\ W.\ Miller}
+\affil[1]{CURV Institute\\
+(CURV Foundation for Representational Science, \textit{in formation})\\
+Geneva, Switzerland}
+
+\date{January 2026}
+
+% -------------------------
+\begin{document}
+\maketitle
+
+% -------------------------
+% Abstract
+% -------------------------
+\begin{abstract}
+Density Functional Theory (DFT) exhibits persistent failure modes—such as self-interaction error, overbinding, and density instability—that are commonly addressed through increasingly complex, entangled density functional approximations (DFAs). In this work, we introduce \emph{Curv-DFA}, a curvature-controlled architecture for DFAs developed at the CURV Institute as part of its Representational Science program.
+
+Curv-DFA treats electronic density as a representation whose failures arise from distinct forms of curvature in representation space. Through controlled numerical experiments, we demonstrate that density-geometry regularization based on Fisher information does not correct self-interaction error and instead requires a separate energy-level control channel. We implement two orthogonal, diagnostic-gated correction layers: a harmonized Fisher curvature channel that regulates density geometry and bonding behavior, and a self-coupling control (SCC) channel that selectively regulates Hartree self-interaction in one-electron-dominated regions.
+
+Using sign-correct tests with positive controls and composability analysis, we show that these channels act independently and compose stably. Curv-DFA does not propose a universal functional; it provides a modular, experimentally validated control architecture for diagnosing and regulating representational failure within density functional approximations.
+\end{abstract}
+
+% -------------------------
+\section{Introduction}
+
+Density Functional Theory (DFT) \cite{HohenbergKohn,KohnSham} is the dominant framework for first-principles electronic structure calculations across physics, chemistry, and materials science. Its success relies on accurate and efficient density functional approximations (DFAs), yet persistent failures—self-interaction error (SIE), overbinding, and density instability—remain common across chemical environments \cite{PerdewZungerSIC}.
+
+Historically, these failures have been addressed by introducing increasingly complex exchange--correlation forms that attempt to correct multiple issues simultaneously. Hybrid and range-separated functionals partially mitigate SIE \cite{HeydScuseriaErnzerhof,LCwPBE}, while meta-GGAs improve bonding behavior through kinetic-energy-density dependence \cite{SCAN}. However, such approaches entangle corrective effects, obscuring physical interpretation and complicating systematic improvement.
+
+In this work, we introduce \emph{Curv-DFA}, a curvature-controlled architecture for DFAs. Curv-DFA does not introduce a new electronic structure theory. Instead, it provides an architectural framework that diagnoses distinct representational failure modes and applies orthogonal, diagnostic-gated control channels targeted to each mode.
+
+% -------------------------
+\section{Representational Failure in Density Functional Approximations}
+
+Within DFT, the electronic density $\rho(\mathbf r)$ functions as a representation of the many-electron state. Approximate DFAs implicitly assume that this representation remains aligned with underlying physics across regimes. When this alignment fails, errors arise not merely from parameterization but from representational failure: mismatches between how information is encoded and how energy and geometry couple to that encoding.
+
+Two dominant forms of representational curvature recur in practice. The first concerns density geometry—how sharply the density bends and forms bonds. The second concerns energy self-coupling—how energy couples to the density through the Hartree term. Treating these failures as equivalent obscures diagnosis and control.
+
+% -------------------------
+\section{Curv-DFA Architecture}
+
+Curv-DFA is implemented as a modular control architecture layered on top of a baseline DFA. In this work, the Perdew--Burke--Ernzerhof (PBE) generalized gradient approximation \cite{PBE} serves as the reference.
+
+Two orthogonal control channels are introduced:
+\begin{enumerate}
+  \item Geometry Curvature Control, regulating density shape and bonding behavior.
+  \item Energy Curvature Control, implemented as Self-Coupling Control (SCC), regulating Hartree self-interaction.
+\end{enumerate}
+
+Each channel is activated through diagnostics and gated to operate only where its target failure mode is detected.
+
+% -------------------------
+\section{Geometry Curvature Control}
+
+Geometry curvature control is implemented via a Fisher-information--based regularization acting on the electronic density, closely related to the Weizsäcker kinetic energy density \cite{Weizsaecker}. The raw Fisher term penalizes sharp density curvature and influences bonding geometry. To prevent pathological behavior in core and asymptotic regions, this term is harmonized using diagnostic gates based on reduced gradients and local density.
+
+Sign-correct tests on one-electron systems demonstrate that Fisher-based geometry control does not correct self-interaction error. On H$_2^+$, geometry curvature control shifts energies in the opposite direction from unrestricted Hartree--Fock and range-separated references, establishing that density geometry distortion and self-interaction are distinct representational failures.
+
+% -------------------------
+\section{Energy Curvature Control: Self-Coupling Control}
+
+Self-interaction error arises from incomplete cancellation of Hartree self-coupling in approximate DFAs \cite{PerdewZungerSIC}. In Curv-DFA, this failure mode is addressed through \emph{Self-Coupling Control (SCC)}, a diagnostic-gated, partial regulation of Hartree self-interaction.
+
+SCC activation is governed by a two-stage gate,
+\begin{equation}
+w_{\mathrm{eff}}(\mathbf r) = w(z(\mathbf r))\,h(\rho(\mathbf r)),
+\end{equation}
+where $z=\tau_W/\tau$ is the iso-orbital indicator \cite{SCAN} and $h(\rho)$ is a density-suppression function. This ensures SCC is active only in genuinely one-electron-dominated regions and suppressed in normal many-electron bonding environments.
+
+Hartree self-coupling is regulated according to
+\begin{equation}
+J_{\mathrm{eff}}[\rho] = J[\rho] - \lambda\,J[w_{\mathrm{eff}}\rho],
+\end{equation}
+with $\lambda$ controlling the strength of regulation. SCC is implemented using a frozen-gate approximation, sufficient to establish sign correctness, stability, and composability.
+
+% -------------------------
+\section{Validation and Results}
+
+On H$_2^+$, SCC shifts energies in the same direction as unrestricted Hartree--Fock and range-separated DFT \cite{HeydScuseriaErnzerhof,LCwPBE}, confirming correct self-interaction behavior. Geometry curvature control alone fails this test.
+
+Na\"ive iso-orbital-only SCC catastrophically overcorrects in CO and NO, demonstrating that one-orbital character is insufficient for safe self-interaction control. Introducing density suppression yields SCC v2, which preserves equilibrium geometry and limits binding-energy shifts to less than 50 mHa while maintaining strong correction on H$_2^+$.
+
+When geometry curvature control and SCC are applied simultaneously, deviations from additivity remain below 2\% across all test systems, demonstrating orthogonality and composability of the control channels.
+
+% -------------------------
+\section{Scope and Limitations}
+
+Curv-DFA does not propose a universal DFA or claim benchmark dominance. SCC is implemented using a frozen-gate approximation; full variational consistency is left to future work. Parameter values reported here define a validated operating regime rather than an optimized solution.
+
+% -------------------------
+\section{Conclusion}
+
+Curv-DFA demonstrates that persistent failures in density functional approximations arise from distinct forms of representational curvature that require orthogonal control mechanisms. By diagnosing these failures and applying diagnostic-gated control channels, Curv-DFA provides a modular, experimentally validated architecture for regulating DFAs within DFT, prioritizing stability, interpretability, and controlled correction over monolithic functional complexity.
+
+% -------------------------
+\section*{Acknowledgments}
+
+This work was conducted at the \textbf{CURV Institute}, the public research identity of the \textbf{CURV Foundation for Representational Science}, an independent research foundation \textit{in formation} based in Geneva, Switzerland. The author acknowledges internal technical review and constructive discussion. Any errors or omissions remain the responsibility of the author.
+
+% -------------------------
+\begin{thebibliography}{99}
+
+\bibitem{HohenbergKohn}
+P.~Hohenberg and W.~Kohn,
+``Inhomogeneous Electron Gas,''
+\emph{Phys.\ Rev.} \textbf{136}, B864 (1964).
+
+\bibitem{KohnSham}
+W.~Kohn and L.~J.~Sham,
+``Self-Consistent Equations Including Exchange and Correlation Effects,''
+\emph{Phys.\ Rev.} \textbf{140}, A1133 (1965).
+
+\bibitem{Weizsaecker}
+C.~F.~von Weizs\"acker,
+``Zur Theorie der Kernmassen,''
+\emph{Z.\ Phys.} \textbf{96}, 431 (1935).
+
+\bibitem{PerdewZungerSIC}
+J.~P.~Perdew and A.~Zunger,
+``Self-interaction correction to density-functional approximations for many-electron systems,''
+\emph{Phys.\ Rev.\ B} \textbf{23}, 5048 (1981).
+
+\bibitem{PBE}
+J.~P.~Perdew, K.~Burke, and M.~Ernzerhof,
+``Generalized Gradient Approximation Made Simple,''
+\emph{Phys.\ Rev.\ Lett.} \textbf{77}, 3865 (1996).
+
+\bibitem{SCAN}
+J.~Sun, A.~Ruzsinszky, and J.~P.~Perdew,
+``Strongly Constrained and Appropriately Normed Semilocal Density Functional,''
+\emph{Phys.\ Rev.\ Lett.} \textbf{115}, 036402 (2015).
+
+\bibitem{HeydScuseriaErnzerhof}
+J.~Heyd, G.~E.~Scuseria, and M.~Ernzerhof,
+``Hybrid functionals based on a screened Coulomb potential,''
+\emph{J.\ Chem.\ Phys.} \textbf{118}, 8207 (2003).
+
+\bibitem{LCwPBE}
+H.~Iikura, T.~Tsuneda, T.~Yanai, and K.~Hirao,
+``A long-range correction scheme for generalized-gradient-approximation exchange functionals,''
+\emph{J.\ Chem.\ Phys.} \textbf{115}, 3540 (2001).
+
+\bibitem{PySCF}
+Q.~Sun \emph{et al.},
+``PySCF: the Python-based simulations of chemistry framework,''
+\emph{WIREs Comput.\ Mol.\ Sci.} \textbf{8}, e1340 (2018).
+
+\end{thebibliography}
+
+\end{document}
