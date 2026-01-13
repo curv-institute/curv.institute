@@ -27,7 +27,7 @@
                 <a href="{{ .RelPermalink }}" class="publication-item">
                     <span class="pub-title">{{ .Title }}</span>
                     <span class="pub-meta">
-                        {{ with .Params.authors }}{{ . }} · {{ end }}{{ .Date.Format "January 2006" }}{{ with .Params.venue }} · {{ . }}{{ end }}
+                        {{ with .Params.authors }}{{ . }} · {{ end }}{{ .Date.Format "January 2, 2006" }}{{ with .Params.venue }} · {{ . }}{{ end }}
                     </span>
                 </a>
                 {{ end }}
