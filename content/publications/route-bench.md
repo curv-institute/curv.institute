@@ -84,7 +84,7 @@ It doesn't claim to solve the problem. It makes the problem visible—and measur
 
 ## Code & Data
 
-All code, data, and results are available at: [github.com/curv-institute/route-bench](https://github.com/curv-institute/route-bench)
+Implementation details and numerical results are available upon request from the CURV Institute.
 
 ## Related Work
 

@@ -81,7 +81,7 @@ In practice, applied-gain control should be viewed as a reliability mechanism, n
 
 ## Code & Data
 
-All code, logs, and plots are available at: [github.com/curv-institute/harmonized-hyper-connections](https://github.com/curv-institute/harmonized-hyper-connections)
+Implementation details and numerical results are available upon request from the CURV Institute.
 
 ## Acknowledgment
 
