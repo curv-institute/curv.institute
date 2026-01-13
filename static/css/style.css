@@ -758,3 +758,14 @@ footer {
     letter-spacing: 0.05em;
     font-style: italic;
 }
+
+/* Publications intro */
+.pub-intro {
+    padding: 40px 0;
+    border-top: none;
+}
+
+.pub-intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
