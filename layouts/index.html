@@ -1,90 +1,125 @@
 {{ define "main" }}
-<header class="header">
-  <div class="container">
-    <a href="{{ "/" | relURL }}" class="logo">CURV Institute</a>
-    <nav class="nav">
-      <span class="location">{{ .Site.Params.location }}</span>
-      <a href="{{ "/blog/" | relURL }}">Blog</a>
-      <a href="{{ "/papers/" | relURL }}">Papers</a>
-    </nav>
-  </div>
-</header>
+    <header>
+        <a href="{{ "/" | relURL }}" class="logo">CURV INSTITUTE</a>
+        <div class="header-meta">GENEVA, SWITZERLAND</div>
+    </header>
 
-<main>
-  <section class="hero">
-    <div class="container">
-      <h1>Operationalizing Representational Science</h1>
-      <p class="tagline">A 21st-century institute model inspired by the legacy of Bell Labs—foundational science and new physics coupled to real-world impact.</p>
-    </div>
-  </section>
+    <main>
+        <section class="hero">
+            <h1>Operationalizing<br><em>Representational</em><br>Science</h1>
+            <p class="hero-tagline">
+                A 21st-century institute model inspired by the legacy of <strong>Bell Labs</strong>—foundational science and new physics coupled to real-world impact.
+            </p>
+        </section>
 
-  <section class="section">
-    <div class="container">
-      <h2>What We Do</h2>
-      <p>CURV Institute develops and validates <strong>Representational Science</strong>—a framework studying how complex systems encode, transform, and regulate information. We examine representation-level failures that cause instability and inefficiency across critical domains.</p>
-    </div>
-  </section>
+        <section class="reveal">
+            <div class="section-label">WHAT WE DO</div>
+            <div class="section-content single">
+                <div>
+                    <p>CURV Institute develops and validates <strong style="color: var(--ink);">Representational Science</strong>, a scientific framework that studies how complex systems encode, transform, and regulate information, and how failures at the representational level give rise to instability, inefficiency, and loss of control.</p>
+                    <p>Representational Science introduces new, testable structure while remaining consistent with established physics in verified regimes. CURV Institute operationalizes this into reproducible diagnostics and control methods, and publishes results openly.</p>
+                    <p>When methods mature, independent applied companies license CURV intellectual property. Royalties flow back to the Institute, sustaining long-horizon basic research. All work is subject to internal and external technical review. CURV Institute stewards a new scientific layer and builds the institutional machinery required to validate and apply it over decades.</p>
+                </div>
+            </div>
+        </section>
 
-  <section class="section alt">
-    <div class="container">
-      <h2>Focus Areas</h2>
-      <p>We apply our research across eight key domains:</p>
-      <ul class="focus-grid">
-        <li>Quantum systems</li>
-        <li>Artificial intelligence</li>
-        <li>CFD/MHD simulation</li>
-        <li>Fusion-relevant plasma dynamics</li>
-        <li>Climate and Earth-system dynamics</li>
-        <li>Power grids and critical infrastructure</li>
-        <li>Biological and medical systems</li>
-        <li>Cyber protection and anomaly detection</li>
-      </ul>
-    </div>
-  </section>
+        <section class="reveal">
+            <div class="section-label">FOCUS AREAS</div>
+            <div class="section-content single">
+                <p style="margin-bottom: 15px; color: var(--muted);">We apply Representational Science across domains where instability and control cost dominate outcomes, including:</p>
+                <div class="focus-grid">
+                    <div class="focus-tag">Quantum systems</div>
+                    <div class="focus-tag">Artificial intelligence</div>
+                    <div class="focus-tag">CFD / MHD simulation</div>
+                    <div class="focus-tag">Fusion-relevant plasma dynamics</div>
+                    <div class="focus-tag">Climate & Earth-system dynamics</div>
+                    <div class="focus-tag">Power grids & critical infrastructure</div>
+                    <div class="focus-tag">Biological & medical systems</div>
+                    <div class="focus-tag">Cyber protection & anomaly detection</div>
+                </div>
+            </div>
+        </section>
 
-  <section class="section">
-    <div class="container">
-      <h2>Operating Model</h2>
-      <div class="model-grid">
-        <div class="model-item">
-          <h3>Institute Pilots</h3>
-          <p>Testing diagnostics on real data</p>
+        <section class="reveal">
+            <div class="section-label">OPERATING MODEL</div>
+            <div class="section-content">
+                <div class="model-flow">
+                    <div class="model-step">
+                        <span class="step-num">01</span>
+                        <div class="step-content">
+                            <h3>Institute Pilots</h3>
+                            <p>Targeted operational validation</p>
+                            <p>Small, tightly scoped projects run inside CURV Institute to test new diagnostics and control methods against real data and systems. Pilots focus on clear hypotheses, fast iteration, and publishable results that de-risk follow-on work in labs and companies.</p>
+                        </div>
+                    </div>
+                    <div class="model-step">
+                        <span class="step-num">02</span>
+                        <div class="step-content">
+                            <h3>Local Labs</h3>
+                            <p>Long-horizon applied validation</p>
+                            <p>Local Labs run multi-year applied research programs, harden methods against real-world constraints, and identify validated patterns that may be developed into applied companies.</p>
+                        </div>
+                    </div>
+                    <div class="model-step">
+                        <span class="step-num">03</span>
+                        <div class="step-content">
+                            <h3>Operating Companies</h3>
+                            <p>Downstream commercialization via licensing</p>
+                            <p>Independent applied companies that license CURV IP, build products on top of validated methods, and scale them into the market. These companies close the loop: they deliver impact, generate IP royalties, and feed data and problems back to the Institute, powering the science-to-market-to-science flywheel.</p>
+                        </div>
+                    </div>
+                </div>
+                <div></div>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <div class="section-label">CORE CONCEPTS</div>
+            <div class="rift-intro">
+                <h2>RIFT Stack</h2>
+                <p style="color: var(--muted);">The Representation–Information Field Theory for curvature-regulated representations</p>
+            </div>
+            <div class="rift-grid">
+                <div class="rift-item">
+                    <div class="rift-abbr">MLR</div>
+                    <div class="rift-name">Miller's Law of Representation — the core law of representational dynamics</div>
+                </div>
+                <div class="rift-item">
+                    <div class="rift-abbr">LoRE</div>
+                    <div class="rift-name">Local Representational Equilibrium — seven laws for how representations evolve</div>
+                </div>
+                <div class="rift-item">
+                    <div class="rift-abbr">HARMONIZER</div>
+                    <div class="rift-name">Tames the raw curvature into usable geometries and dynamics</div>
+                </div>
+                <div class="rift-item">
+                    <div class="rift-abbr">GRIT</div>
+                    <div class="rift-name">Geometric Representation–Information Tensors — curvature operators that measure how representation and entropy bend in space</div>
+                </div>
+                <div class="rift-item">
+                    <div class="rift-abbr">DIRT</div>
+                    <div class="rift-name">Dynamics of the Informational Representation Tensor — the curvature-driven update of representational fields</div>
+                </div>
+                <div class="rift-item">
+                    <div class="rift-abbr">CURV CYCLE</div>
+                    <div class="rift-name">Constrain · Update · Represent · Validate — the curvature-regulated control loop of RIFT</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-legal">
+                <strong>LEGAL IMPRINT / MENTIONS LÉGALES</strong><br>
+                Legal entity: CURV Foundation for Representational Science (in formation) · Legal form: Swiss foundation (Stiftung, in formation) · Intended registered seat: Geneva, Switzerland<br>
+                CURV Institute is the public operating research identity of the CURV Foundation for Representational Science. Non-commercial, public-interest scientific activities only.
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-mark">Contact: <a href="mailto:info@curv.institute">info@curv.institute</a></div>
+                <div class="footer-mark">© 2026 CURV Foundation for Representational Science</div>
+            </div>
         </div>
-        <div class="model-item">
-          <h3>Local Labs</h3>
-          <p>Multi-year applied research programs</p>
-        </div>
-        <div class="model-item">
-          <h3>Operating Companies</h3>
-          <p>Licensed commercialization with royalty returns</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section alt">
-    <div class="container">
-      <h2>Core Concepts</h2>
-      <ul class="concepts">
-        <li><strong>MLR</strong> — Miller's Law of Representation</li>
-        <li><strong>LoRE</strong> — Local Representational Equilibrium</li>
-        <li><strong>RIFT Stack</strong> — Geometric frameworks for analysis</li>
-        <li><strong>CURV Cycle</strong> — Our methodological framework</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section contact">
-    <div class="container">
-      <h2>Contact</h2>
-      <p><a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></p>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <p>Swiss foundation (in formation); non-commercial, public-interest focus</p>
-  </div>
-</footer>
+    </footer>
 {{ end }}
