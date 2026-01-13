@@ -10,13 +10,13 @@
     <main>
         <article class="article">
             <div class="article-header">
-                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2006" }}</time>
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
                 <h1>{{ .Title }}</h1>
                 {{ with .Params.authors }}<p class="authors">{{ . }}</p>{{ end }}
                 {{ with .Params.venue }}<p class="venue">{{ . }}</p>{{ end }}
                 <div class="pub-links">
                     {{ with .Params.arxiv }}<a href="https://arxiv.org/abs/{{ . }}" class="btn btn-primary" target="_blank">arXiv:{{ . }}</a>{{ end }}
-                    {{ with .Params.pdf }}<a href="{{ . }}" class="btn btn-secondary" target="_blank">PDF</a>{{ end }}
+                    {{ with .Params.pdf }}<a href="{{ . }}" class="btn btn-primary" target="_blank">Read Paper PDF</a>{{ end }}
                     {{ with .Params.doi }}<a href="https://doi.org/{{ . }}" class="btn btn-secondary" target="_blank">DOI</a>{{ end }}
                 </div>
             </div>
