@@ -1,0 +1,184 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{booktabs}
+\geometry{margin=1in}
+
+\title{Constraints on Curvature-Mediated Long-Range Entanglement in a Minimal Three-Node Quantum Chain}
+
+\author{J.~W.~Miller\\
+Founder \& Research Director\\
+CURV Institute\\
+January 2026}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We test whether hub-localized noise can induce curvature-mediated long-range entanglement in a minimal three-node chain (A--B--C) with nearest-neighbor couplings only. Using ideal simulation (Qiskit Aer) and IBM superconducting quantum hardware, we reconstruct pairwise two-qubit states (AB, BC, AC) via tomography and quantify entanglement by negativity. Across physically meaningful noise regimes---delay-based decoherence (time-under-$T_1/T_2$) and dephasing-dominant Pauli-$Z$---we observe no robust emergence of A--C entanglement. A small A--C negativity appears only under Pauli-$Z$ at higher noise settings and remains far below nearest-neighbor entanglement. These results constrain strong ``curvature-channel'' claims in the minimal A--B--C geometry.
+\end{abstract}
+
+\section{Introduction}
+Entanglement in open quantum systems is commonly modeled with fixed Hamiltonians and Markovian dissipation (e.g., Lindblad master equations). Various geometry- or curvature-mediated proposals suggest that noise applied to an intermediate ``hub'' subsystem could enable long-range entanglement between endpoints beyond what topology alone would suggest. We test this claim in the smallest nontrivial setting: a three-node linear chain A--B--C with nearest-neighbor couplings only.
+
+\section{Experimental Design}
+
+\subsection{System and protocol}
+We implement a three-qubit chain labeled A--B--C with XX-like couplings on AB and BC and no direct AC coupling. The initial state is $|100\rangle$ (A excited, B and C in ground). For each configuration, we perform Pauli-basis tomography on three-qubit measurement settings and reconstruct reduced two-qubit density matrices $\rho_{AB}$, $\rho_{BC}$, and $\rho_{AC}$. Entanglement is quantified by negativity \cite{VidalWerner2002,Peres1996}.
+
+\subsection{Noise knobs tested}
+We evaluated three hub-noise mechanisms applied on qubit B:
+\begin{itemize}
+  \item \textbf{Idle gate injection (unitary)}: repeated identity operations on B (not a physical decoherence knob in ideal simulation).
+  \item \textbf{Delay-based decoherence}: inserted delays on B of specified duration (ns), increasing exposure to $T_1/T_2$ processes.
+  \item \textbf{Pauli-$Z$ dephasing}: repeated $Z$ operations on B to induce dephasing-dominant scrambling.
+\end{itemize}
+
+\subsection{Platforms}
+We ran (i) ideal simulation using Qiskit Aer \cite{QiskitAerDoc} and (ii) IBM Quantum hardware via Qiskit Runtime \cite{QiskitRuntimeDoc}. Hardware runs were executed on multiple backends.
+
+\section{Methods}
+
+\subsection{Tomography and reconstruction}
+For each experimental setting, we performed full Pauli-basis tomography using the $\{X,Y,Z\}^{\otimes 3}$ measurement set (27 circuits). Raw counts were collected with 4096 shots per circuit and no error mitigation. Reduced two-qubit density matrices $\rho_{AB}$, $\rho_{BC}$, and $\rho_{AC}$ were reconstructed by Pauli expansion from measured expectation values. Numerical symmetrization was applied to enforce Hermiticity, and traces were normalized to unity.
+
+\subsection{Entanglement measure}
+Entanglement was quantified using the negativity $\mathcal{N}$, defined as
+\begin{equation}
+\mathcal{N}(\rho) = \frac{\lVert \rho^{T_B} \rVert_1 - 1}{2},
+\end{equation}
+where $T_B$ denotes the partial transpose with respect to the second subsystem and $\lVert\cdot\rVert_1$ is the trace norm. Negativity was chosen over concurrence because it is well defined and numerically stable for arbitrary mixed states, which are unavoidable in NISQ-era hardware experiments, whereas concurrence becomes unreliable as state purity decreases. Negativity is monotonic under local operations and classical communication and provides a robust lower bound on entanglement in noisy experimental settings.
+
+\subsection{AC-dominance criterion}
+To test for curvature-mediated long-range entanglement, we adopted the following operational criterion: an experimental setting is deemed \emph{AC-dominant} if
+\begin{equation}
+\mathcal{N}(\rho_{AC}) > \mathcal{N}(\rho_{AB}) \quad \text{and} \quad \mathcal{N}(\rho_{AC}) > \mathcal{N}(\rho_{BC}).
+\end{equation}
+We additionally required that any nonzero $\mathcal{N}(\rho_{AC})$ be reproducible across at least two adjacent noise settings to exclude single-point sampling artifacts.
+
+\section{Run Log and Measured Results}
+Table entries are reported as measured (no error mitigation). All runs used $\theta=0.4$, 4096 shots, and the listed physical layouts.
+
+\paragraph{Cycle 1 (\texttt{ibm\_torino}, idle noise).}
+\begin{table}[h]
+\centering
+\caption{Cycle 1: \texttt{ibm\_torino}, layout (66,65,55), idle noise.}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+noise\_level & Neg(AB) & Neg(BC) & Neg(AC) \\
+\midrule
+0  & 0.2161 & 0.2130 & 0.0000 \\
+4  & 0.2129 & 0.2115 & 0.0000 \\
+8  & 0.2025 & 0.2072 & 0.0051 \\
+16 & 0.2106 & 0.2129 & 0.0000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Cycle 2 (\texttt{ibm\_fez}, idle noise).}
+\begin{table}[h]
+\centering
+\caption{Cycle 2: \texttt{ibm\_fez}, layout (144,143,142), idle noise.}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+noise\_level & Neg(AB) & Neg(BC) & Neg(AC) \\
+\midrule
+0  & 0.2034 & 0.2197 & 0.0000 \\
+4  & 0.2056 & 0.2197 & 0.0000 \\
+8  & 0.2163 & 0.2187 & 0.0000 \\
+16 & 0.2183 & 0.2174 & 0.0000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Cycle 3 (\texttt{ibm\_fez}, delay on B).}
+\begin{table}[h]
+\centering
+\caption{Cycle 3: \texttt{ibm\_fez}, layout (144,143,142), delay on B.}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+delay\_ns & Neg(AB) & Neg(BC) & Neg(AC) \\
+\midrule
+0    & 0.2115 & 0.2176 & 0.0000 \\
+200  & 0.2073 & 0.2129 & 0.0000 \\
+500  & 0.1700 & 0.2124 & 0.0000 \\
+1000 & 0.1220 & 0.2130 & 0.0000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Cycle 4 (\texttt{ibm\_fez}, Pauli-$Z$ on B).}
+\begin{table}[h]
+\centering
+\caption{Cycle 4: \texttt{ibm\_fez}, layout (144,143,142), Pauli-$Z$ dephasing.}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+noise\_level & Neg(AB) & Neg(BC) & Neg(AC) \\
+\midrule
+0  & 0.2090 & 0.2230 & 0.0000 \\
+4  & 0.2126 & 0.2169 & 0.0000 \\
+8  & 0.2125 & 0.2196 & 0.0020 \\
+16 & 0.2120 & 0.2210 & 0.0024 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Results}
+Nearest-neighbor entanglement (AB, BC) remained substantial ($\sim 0.20$ to $0.22$) under idle-gate and Pauli-$Z$ settings. Delay-based decoherence on B produced clear monotonic decay of Neg(AB) with increasing delay, while Neg(BC) remained approximately constant. In no regime did Neg(AC) exceed Neg(AB) or Neg(BC). Neg(AC) was zero in all delay-based runs and became weakly nonzero only under Pauli-$Z$ at noise levels 8 and 16.
+
+\section{Discussion}
+The data constrain a strong curvature-mediated long-range entanglement claim in the minimal A--B--C chain. Physically meaningful amplitude decoherence (delay) did not produce measurable A--C entanglement. Dephasing-dominant noise (Pauli-$Z$) produced only a small, bounded A--C signal ($\le 0.0024$) far below nearest-neighbor entanglement.
+
+\section{Conclusion}
+We performed a systematic A--B--C test across simulation and IBM hardware using multiple hub-noise mechanisms on B. No robust A--C entanglement emerged. A small A--C negativity appeared only under Pauli-$Z$ at higher noise settings and remains bounded.
+
+\section*{Reproducibility and Data Availability}
+All experiments reported in this work are fully reproducible using publicly available tools and documented configurations. Circuit construction, tomography routines, and analysis scripts were implemented using Qiskit and Qiskit Aer, with execution on IBM Quantum hardware via Qiskit Runtime. For each hardware run, the backend name, physical qubit layout, noise regime, shot count, and execution timestamp are explicitly reported. Pairwise negativity values are computed directly from reconstructed two-qubit density matrices without error mitigation or post-selection.
+
+All hardware experiments reported here were executed within the standard free-access runtime allocation provided by IBM Quantum, requiring less than ten minutes of total QPU runtime.
+
+The full set of circuits, raw measurement counts, and analysis scripts used to generate the reported results are publicly available at
+\url{https://github.com/curv-institute/abc_tomography}. These materials are sufficient to reproduce all tables and figures in this manuscript and to repeat the experiments on future hardware backends.
+
+\begin{thebibliography}{9}
+\bibitem{Horodecki2009}
+R.~Horodecki, P.~Horodecki, M.~Horodecki, and K.~Horodecki,
+\emph{Quantum entanglement},
+Rev. Mod. Phys. \textbf{81}, 865--942 (2009).
+
+\bibitem{VidalWerner2002}
+G.~Vidal and R.~F.~Werner,
+\emph{Computable measure of entanglement},
+Phys. Rev. A \textbf{65}, 032314 (2002).
+
+\bibitem{Peres1996}
+A.~Peres,
+\emph{Separability criterion for density matrices},
+Phys. Rev. Lett. \textbf{77}, 1413--1415 (1996).
+
+\bibitem{BreuerPetruccione2002}
+H.-P.~Breuer and F.~Petruccione,
+\emph{The Theory of Open Quantum Systems},
+Oxford University Press (2002).
+
+\bibitem{Preskill2018}
+J.~Preskill,
+\emph{Quantum computing in the NISQ era and beyond},
+Quantum \textbf{2}, 79 (2018).
+
+\bibitem{QiskitAerDoc}
+IBM Qiskit,
+\emph{Qiskit Aer documentation},
+\url{https://qiskit.org/documentation/apidoc/aer.html}.
+
+\bibitem{QiskitRuntimeDoc}
+IBM Quantum,
+\emph{Qiskit Runtime documentation},
+\url{https://quantum.ibm.com/runtime}.
+\end{thebibliography}
+
+\end{document}
