@@ -52,7 +52,7 @@ jobs:
           version: 1.1
 
       - name: Regenerate LaTeX formats
-        run: fmtutil-sys --all
+        run: sudo fmtutil-sys --all
 
       - name: Compile TeX papers
         run: |
