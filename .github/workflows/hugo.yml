@@ -45,14 +45,10 @@ jobs:
           fi
           sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
-      - name: Cache LaTeX packages
-        uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          packages: texlive-base texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
-          version: 1.1
-
-      - name: Regenerate LaTeX formats
-        run: sudo fmtutil-sys --all
+      - name: Install LaTeX packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended latexmk
 
       - name: Compile TeX papers
         run: |
