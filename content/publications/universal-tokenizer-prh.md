@@ -70,4 +70,4 @@ The motivation for a structure-bearing representation dates back to John Wilkins
 
 All assets required to reproduce the results are included in the accompanying repository. This includes source code, deterministic data generation scripts, evaluation datasets with manifests, generated figures and tables, and scripts to reproduce all experiments from recorded manifests. No external datasets, pretrained models, or proprietary resources are required.
 
-Implementation details and numerical results are available upon request from the CURV Institute.
+**Repository:** [github.com/curv-institute/universal_tokenizer](https://github.com/curv-institute/universal_tokenizer)
