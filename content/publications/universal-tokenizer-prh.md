@@ -7,7 +7,7 @@ pdf: "/papers/universal-tokenizer-prh.pdf"
 abstract: "Modern tokenizers are treated as neutral preprocessing steps, yet they implicitly encode assumptions about representation, stability, and learnability. The Platonic Representation Hypothesis (PRH) posits that stable abstract representations exist independently of semantics and learning objectives, and that such representations can be measured and regulated. We test this hypothesis empirically by constructing a representation-controlled stack consisting of a Universal Lossless Tokenizer (ULT), a relational regularization mechanism (Harmonized Hyper-Connections, HHC), and a reversible Language Interface Layer (LIL). Across heterogeneous byte streams, ULT achieves lossless universal tokenization with measurable stability diagnostics. Introducing HHC yields a controlled trade-off: a modest compression penalty in exchange for substantially improved stability and reduced representational curvature under regime shifts. A strictly normalized downstream language-model proxy experiment produces a negative result, confirming that stability-optimized representations are not necessarily easier to learn under next-token objectives. Finally, LIL demonstrates that interface stability can be achieved independently of representation and learning, via deterministic, reversible structure normalization. Together, these results are consistent with PRH's core prediction that representational stability is an intrinsic property, separable from compression efficiency and learnability."
 ---
 
-We present empirical tests of the Platonic Representation Hypothesis by constructing a representation-controlled tokenization stack. The core finding: stability, efficiency, and learnability are distinct axes requiring explicit trade-offs. Representations optimized for global stability are not necessarily aligned with local next-token predictability—a negative result that confirms rather than contradicts PRH.
+We present empirical tests of the Platonic Representation Hypothesis by constructing a representation-controlled tokenization stack. The core finding: stability, efficiency, and learnability are distinct axes requiring explicit trade-offs. Representations optimized for global stability are not necessarily aligned with local next-token predictability—a negative result that is consistent with rather than contradicts PRH.
 
 **[Read Paper PDF](/papers/universal-tokenizer-prh.pdf)**
 
@@ -41,10 +41,10 @@ We construct three components that isolate different aspects of representation:
 - 9% reduction in mean curvature under regime-shift stress streams
 - HHC is fully active and non-degenerate with minimal controller interventions required
 
-### Negative downstream result confirms PRH
+### Negative downstream result is consistent with PRH
 - HHC-stabilized tokens yield substantially higher loss (~50% increase) in language-model proxy experiments
 - Under strict byte-normalized controls, baseline tokens achieve 1.15 ± 0.03 loss vs HHC's 1.76 ± 0.08
-- This confirms that representations optimized for global stability and relational coherence are not aligned with local next-token predictability
+- This is consistent with representations optimized for global stability and relational coherence not being aligned with local next-token predictability
 
 ### LIL achieves interface stability orthogonally
 - 100% lossless round-trip reconstruction when composed with ULT
@@ -53,7 +53,7 @@ We construct three components that isolate different aspects of representation:
 
 ## Interpretation
 
-The experiments support PRH's core claims:
+The experiments are consistent with PRH's core predictions:
 
 1. Stable representations exist and are measurable independently of semantics and learning
 2. Enforcing relational constraints increases stability while trading off compression efficiency and learnability
