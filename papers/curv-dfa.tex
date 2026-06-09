@@ -42,7 +42,7 @@ Density Functional Theory (DFT) exhibits persistent failure modes—such as self
 
 Curv-DFA treats electronic density as a representation whose failures arise from distinct forms of curvature in representation space. Through controlled numerical experiments, we demonstrate that density-geometry regularization based on Fisher information does not correct self-interaction error and instead requires a separate energy-level control channel. We implement two orthogonal, diagnostic-gated correction layers: a harmonized Fisher curvature channel that regulates density geometry and bonding behavior, and a self-coupling control (SCC) channel that selectively regulates Hartree self-interaction in one-electron-dominated regions.
 
-Using sign-correct tests with positive controls and composability analysis, we show that these channels act independently and compose stably. Curv-DFA does not propose a universal functional; it provides a modular, experimentally validated control architecture for diagnosing and regulating representational failure within density functional approximations.
+Using sign-correct tests with positive controls and composability analysis, we show that these channels act independently and compose stably. Curv-DFA does not propose a universal functional; it provides a modular control architecture, validated in-sample in controlled numerical experiments on small model systems (H$_2$, H$_2^+$, CO, NO; def2-svp/PBE), for diagnosing and regulating representational failure within density functional approximations.
 \end{abstract}
 
 % -------------------------
@@ -94,9 +94,9 @@ where $z=\tau_W/\tau$ is the iso-orbital indicator \cite{SCAN} and $h(\rho)$ is 
 
 Hartree self-coupling is regulated according to
 \begin{equation}
-J_{\mathrm{eff}}[\rho] = J[\rho] - \lambda\,J[w_{\mathrm{eff}}\rho],
+J_{\mathrm{eff}}[\rho] = J[\rho] - \lambda_{\mathrm{SCC}}\,J[w_{\mathrm{eff}}\rho],
 \end{equation}
-with $\lambda$ controlling the strength of regulation. SCC is implemented using a frozen-gate approximation, sufficient to establish sign correctness, stability, and composability.
+with $\lambda_{\mathrm{SCC}}$ controlling the strength of regulation. $\lambda_{\mathrm{SCC}}$ is a dimensionless implementation parameter of the SCC channel; it has no derived relation to any variational multiplier in the broader Representational Science framework. SCC is implemented using a frozen-gate approximation, sufficient to establish sign correctness, stability, and composability.
 
 % -------------------------
 \section{Validation and Results}
@@ -105,7 +105,7 @@ On H$_2^+$, SCC shifts energies in the same direction as unrestricted Hartree--F
 
 Na\"ive iso-orbital-only SCC catastrophically overcorrects in CO and NO, demonstrating that one-orbital character is insufficient for safe self-interaction control. Introducing density suppression yields SCC v2, which preserves equilibrium geometry and limits binding-energy shifts to less than 50 mHa while maintaining strong correction on H$_2^+$.
 
-When geometry curvature control and SCC are applied simultaneously, deviations from additivity remain below 2\% across all test systems, demonstrating orthogonality and composability of the control channels.
+When geometry curvature control and SCC are applied simultaneously, deviations from additivity remain below 2\% across all test systems (measured with the SCC v1 implementation; regeneration with SCC v2 is pending), demonstrating orthogonality and composability of the control channels.
 
 % -------------------------
 \section{Scope and Limitations}
@@ -115,7 +115,7 @@ Curv-DFA does not propose a universal DFA or claim benchmark dominance. SCC is i
 % -------------------------
 \section{Conclusion}
 
-Curv-DFA demonstrates that persistent failures in density functional approximations arise from distinct forms of representational curvature that require orthogonal control mechanisms. By diagnosing these failures and applying diagnostic-gated control channels, Curv-DFA provides a modular, experimentally validated architecture for regulating DFAs within DFT, prioritizing stability, interpretability, and controlled correction over monolithic functional complexity.
+Curv-DFA demonstrates that persistent failures in density functional approximations arise from distinct forms of representational curvature that require orthogonal control mechanisms. By diagnosing these failures and applying diagnostic-gated control channels, Curv-DFA provides a modular architecture, validated in-sample in controlled numerical experiments on small model systems (H$_2$, H$_2^+$, CO, NO; def2-svp/PBE), for regulating DFAs within DFT, prioritizing stability, interpretability, and controlled correction over monolithic functional complexity.
 
 % -------------------------
 \section*{Acknowledgments}
