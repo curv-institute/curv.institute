@@ -4,7 +4,6 @@ title = 'CURV Institute'
 
 [params]
   description = 'Operationalizing Representational Science'
-  location = 'Geneva, Switzerland'
   email = 'info@curv.institute'
 
 [markup]
